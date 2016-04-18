@@ -8,4 +8,8 @@ class Song < ActiveRecord::Base
 		self.url = nil if url.empty?
 	end
 
+	def youtube_embed
+	  url[/www\.youtube\.com\/watch\?v\=(\w+)/, 1]
+	end
+
 end

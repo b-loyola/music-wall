@@ -19,5 +19,7 @@ end
 
 get '/songs/:id' do
 	@song = Song.find(params[:id])
+	@youtube_video_code = @song.youtube_embed if @song.url
+	@other_songs_from_author = Song.where(author: @song.author).where.not(id: params[:id])
 	erb :'songs/show'
 end

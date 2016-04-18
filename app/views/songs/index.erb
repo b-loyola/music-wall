@@ -2,8 +2,5 @@
 	<div class="songs">
 		<h3>Song title: <a href="/songs/<%= song.id %>"><%= song.title %></a></h3>
 		<p>Author: <%= song.author %></p>
-		<% if song.url %>
-			<p><a href="<%= song.url %>">Let's hear it!</a></p>
-		<% end %>
 	</div>
 <% end %>
