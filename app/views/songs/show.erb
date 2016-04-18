@@ -1,0 +1,18 @@
+<% if @song.created_at %>
+	<p>Added at: <%= @song.created_at %></p>
+<% end %>
+
+<p>
+	Author: <%= @song.author %>
+</p>
+
+<p>
+	Title: <%= @song.title %>
+</p>
+
+<% if @song.url %>
+	<a href="<%= @song.url %>"><%= @song.url %></a>
+<% end %>
+
+<hr/>
+<a href="/songs">Back to all songs</a>
