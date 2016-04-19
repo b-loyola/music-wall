@@ -16,8 +16,10 @@
 		<% if current_user %>
 			<% if song.votes.pluck(:user_id).exclude? current_user.id %>
 				<form method="post" action="/songs/vote/<%= song.id %>">
-					<input type="submit" name="upvote" value="Vote Up">
+					<button class="btn btn-primary" type="submit" name="upvote">Vote Up</button>
 				</form>
+			<% else %>
+				<button class="btn btn-primary" type="submit" name="upvote" disabled>Voted!</button>
 			<% end %>
 		<% else %>
 			<p>Log in to vote for songs</p>

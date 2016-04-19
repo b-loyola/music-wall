@@ -1,6 +1,17 @@
+before do
+	if session[:user_id]
+		@user = User.find(session[:user_id])
+	else
+		@user = User.new
+	end
+end
+
 helpers do
 	def current_user
 		User.find(session[:user_id]) if session[:user_id]
+	end
+	def login(user)
+		session[:user_id] = user.id
 	end
 end
 
@@ -30,20 +41,21 @@ end
 
 get '/songs/:id/?' do
 	@song = Song.find(params[:id])
+	@review = Review.new
 	@youtube_video_code = @song.youtube_embed if @song.url
 	@other_songs_from_author = Song.where(author: @song.author).where.not(id: params[:id])
 	erb :'songs/show'
 end
 
 get '/signup/?' do
-	@user = User.new
 	erb :signup
 end
 
 post '/signup/?' do
-	user = User.new(email: params[:email], password: params[:password])
+	user = User.new(email: params[:email])
+	user.password = params[:password]
 	if user.save
-		session[:user_id] = user.id
+		login(user)
 		redirect '/'
 	else
 		erb :signup
@@ -51,7 +63,6 @@ post '/signup/?' do
 end
 
 get '/login/?' do
-	@user = User.new
 	erb :login
 end
 
@@ -59,8 +70,8 @@ post '/login/?' do
 	user = User.find_by(email: params[:email])
 
 	if user && user.password == params[:password]
-		session[:user_id] = user.id
-		redirect '/'
+		login(user)
+		redirect "#{request.path_info}"
 	else
 		@login_error = "Login Failed."
 		@email = params[:email]
@@ -80,9 +91,18 @@ post '/songs/vote/:id/?' do
 	redirect '/'
 end
 
+post '/songs/review/:id/?' do
+	@review = Review.new(content: params[:review],user_id: current_user.id, song_id: params[:id])
+	@review.save
+	redirect "/songs/#{params[:id]}"
+end
 
-
-
+delete '/songs/review/:id/?' do
+	review = Review.find(params[:id])
+	song = review.song
+	review.destroy if review
+	redirect "/songs/#{song.id}"
+end
 
 
 

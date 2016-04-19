@@ -10,17 +10,10 @@
 <% end %>
 
 <form method="post" action="/songs">
-	<div>
-		<label>Song Title</label>
-		<input type="text" name="title" value="<%= @song.title %>">
-	</div>
-	<div>
-		<label>Author</label>
-		<input type="text" name="author" value="<%= @song.author %>">
-	</div>
-	<div>
-		<label>Link (optional)</label>
-		<input type="text" name="url" value="<%= @song.url %>">
-	</div>
-	<input type="submit" value="Submit">
+	<fieldset class="form-group">
+		<input placeholder="Song Title" class="form-control" type="text" name="title" value="<%= @song.title %>">
+		<input placeholder="Artist" class="form-control" type="text" name="author" value="<%= @song.author %>">
+		<input placeholder="Video URL" class="form-control" type="text" name="url" value="<%= @song.url %>">
+	</fieldset>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 </form>
