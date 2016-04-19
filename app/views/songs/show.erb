@@ -1,13 +1,15 @@
-<% if @song.created_at %>
-	<p>Added at: <%= @song.created_at %></p>
-<% end %>
+<%= erb(:navbar) %>
+
+<h4>
+	<p><small>Author: </small><%= @song.author %></p>
+</h4>
+
+<h4>
+	<p><small>Title: </small><%= @song.title %></p>
+</h4>
 
 <p>
-	Author: <%= @song.author %>
-</p>
-
-<p>
-	Title: <%= @song.title %>
+	<small>Added at: <%= @song.created_at %></small>
 </p>
 
 <% if @youtube_video_code %>
@@ -19,10 +21,12 @@
 <% end %>
 
 <% if @other_songs_from_author.any? %>
-	<h4>Other songs from <%= @song.author %>:</h4>
-	<% @other_songs_from_author.each do |song| %>
-		<p><a href="/songs/<%= song.id %>"> <%= song.title %></a></p>
-	<% end %>
+	<h5>
+		<small>Other songs from <%= @song.author %>:</small>
+		<% @other_songs_from_author.each do |song| %>
+			<p><a href="/songs/<%= song.id %>"> <%= song.title %></a></p>
+		<% end %>
+	</h5>
 <% end %>
 
 <hr/>

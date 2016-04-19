@@ -1,6 +1,27 @@
 <% @songs.each do |song| %>
 	<div class="songs">
-		<h3>Song title: <a href="/songs/<%= song.id %>"><%= song.title %></a></h3>
-		<p>Author: <%= song.author %></p>
+		<h3>
+			Song:
+			<a href="/songs/<%= song.id %>"><%= song.title %></a>
+			<small> -- Votes: <%= song.vote_count %></small>
+		</h3>
+
+		<p>
+			<small>Artist: </small><%= song.author %>
+			<% if song.user %>
+				<small> Posted by: </small><%= song.user.email %>
+			<% end %>
+		</p>
+
+		<% if current_user %>
+			<% if song.votes.pluck(:user_id).exclude? current_user.id %>
+				<form method="post" action="/songs/vote/<%= song.id %>">
+					<input type="submit" name="upvote" value="Vote Up">
+				</form>
+			<% end %>
+		<% else %>
+			<p>Log in to vote for songs</p>
+		<% end %>
+
 	</div>
 <% end %>

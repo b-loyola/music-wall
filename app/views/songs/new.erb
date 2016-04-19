@@ -1,4 +1,4 @@
-<% if @song && @song.errors.any? %>
+<% if @song.errors.any? %>
 	<div>
 		<strong>Some issues with your submission, please fix them:</strong>
 		<ul>
@@ -12,15 +12,15 @@
 <form method="post" action="/songs">
 	<div>
 		<label>Song Title</label>
-		<input type="text" name="title" value="<%= @song && @song.title %>">
+		<input type="text" name="title" value="<%= @song.title %>">
 	</div>
 	<div>
 		<label>Author</label>
-		<input type="text" name="author" value="<%= @song && @song.author %>">
+		<input type="text" name="author" value="<%= @song.author %>">
 	</div>
 	<div>
 		<label>Link (optional)</label>
-		<input type="text" name="url" value="<%= @song && @song.url %>">
+		<input type="text" name="url" value="<%= @song.url %>">
 	</div>
 	<input type="submit" value="Submit">
 </form>

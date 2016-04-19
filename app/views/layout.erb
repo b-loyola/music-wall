@@ -14,6 +14,10 @@
   <title></title>
 </head>
 <body>
-    <%= yield %>
+    <%= erb(:navbar) %>
+    <div class="container">
+      <%= yield %>
+      <%= erb(:footer) %>
+    </div>    
 </body>
 </html>

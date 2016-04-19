@@ -1,28 +1,11 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<a href="/songs/" class="navbar-brand">Music Wall</a>
-		</div>
-		<div id="navbar" class="navbar-collapse collapse">
+<div class='jumbotron'>
+	<h1>Welcome to Music Wall!</h1>
+	<p class="lead">A chaotic place to post your music, check what everyone else is listening to and vote for songs you like.</p>
+	<p>
+		<a class="btn btn-lg btn-success" href="/songs/new">Add a Song Now!</a>
+	</p>
+</div>
 
-		</div>
-	</div>
-</nav>
-
-<div class="container">
-	<div class='jumbotron'>
-		<h1>Welcome to Music Wall!</h1>
-		<p class="lead">A chaotic place to post your music, check what everyone else is listening to and do whatever you want. You can even change or delete other people's songs!</p>
-		<p>
-			<a class="btn btn-lg btn-success" href="/songs/new">Add a Song Now!</a>
-		</p>
-	</div>
-
-	<div class="row marketing">
-		<%= erb(:'songs/index') %>
-	</div>
-
-	<footer class="footer">
-		<p>© 2016 Music Wall, Inc.</p>
-	</footer>
+<div class="row marketing">
+	<%= erb(:'songs/index') %>
 </div>
