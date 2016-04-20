@@ -48,7 +48,11 @@ get '/songs/:id/?' do
 end
 
 get '/signup/?' do
-	erb :signup
+	if current_user
+		redirect '/'
+	else
+		erb :signup
+	end
 end
 
 post '/signup/?' do
@@ -63,7 +67,14 @@ post '/signup/?' do
 end
 
 get '/login/?' do
-	erb :login
+
+  session[:redirect] = params[:redirect] if params[:redirect]
+
+	if current_user
+		redirect '/'
+	else
+		erb :login
+	end
 end
 
 post '/login/?' do
@@ -71,7 +82,11 @@ post '/login/?' do
 
 	if user && user.password == params[:password]
 		login(user)
-		redirect "#{request.path_info}"
+		if session[:redirect]
+      redirect session[:redirect]
+    else
+      redirect '/'
+    end
 	else
 		@login_error = "Login Failed."
 		@email = params[:email]
@@ -92,8 +107,13 @@ post '/songs/vote/:id/?' do
 end
 
 post '/songs/review/:id/?' do
-	@review = Review.new(content: params[:review],user_id: current_user.id, song_id: params[:id])
-	@review.save
+	review = Review.new(
+		rating: params[:score].to_i, 
+		content: params[:review],
+		user_id: current_user.id, 
+		song_id: params[:id]
+	)
+	review.save
 	redirect "/songs/#{params[:id]}"
 end
 

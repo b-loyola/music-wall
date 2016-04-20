@@ -36,6 +36,10 @@
 		<form method="post" action="/songs/review/<%= @song.id %>">
 			<fieldset class="form-group">
 				<label>Write a review for <%= @song.title %> by <%= @song.author %></label>
+				<fieldset class="form-group">
+			    <label>Rating</label>
+			    <div id="raty"></div>
+			  </fieldset>
 				<textarea class="form-control" name="review" rows="3"></textarea>
 			</fieldset>
 			<button type="submit" class="btn btn-primary">Submit</button>
@@ -48,11 +52,12 @@
 <h4>Reviews for this song</h4>
 <% @song.reviews.order(created_at: :desc).each do |review| %>
 	<p>
+		<% review.rating.times do %>
+			<span class="glyphicon glyphicon-star"></span>
+		<% end %>
 		<%= review.content %><small> -- by <%= review.user.email %></small>
 		<% if current_user && current_user.id == review.user.id %>
-			<!-- <button class="btn btn-primary btn-sm">Delete this review</button> -->
 			<form class="form-inline" method="post" action="/songs/review/<%= review.id %>">
-				<!-- <small>Are you sure?</small> -->
 				<input name="_method" type="hidden" value="delete">
 				<button class="btn btn-danger btn-sm" type="submit">Delete</button>
 			</form>

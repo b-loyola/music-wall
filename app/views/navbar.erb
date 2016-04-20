@@ -31,7 +31,7 @@
 					<a href="/signup">Sign Up</a>
 				</li>
 				<li>
-					<a href="/login">Log In</a>
+					<a href="/login?redirect=<%= request.path_info %>">Log In</a>
 				</li>
 				<% end %>
 			</ul>
